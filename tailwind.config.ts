@@ -9,10 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        brand: {
+          50:  '#fdf2f8',
+          100: '#fce7f3',
+          400: '#f472b6',
+          500: '#ec4899',
+          600: '#db2777',
+          700: '#be185d',
+        }
       },
-    },
+      fontFamily: {
+        sans: ['var(--font-plus-jakarta)', 'sans-serif'],
+      }
+    }
   },
   plugins: [],
 };

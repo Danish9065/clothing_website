@@ -6,6 +6,11 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    'translate-x-0',
+    '-translate-x-full',
+    'data-[open=true]:translate-x-0',
+  ],
   theme: {
     extend: {
       colors: {

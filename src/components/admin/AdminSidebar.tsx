@@ -67,14 +67,8 @@ export default function AdminSidebar({
 
     return (
         <aside
-            className={`
-                fixed inset-y-0 left-0 z-50 w-64
-                bg-white border-r border-slate-100
-                flex flex-col
-                transition-transform duration-300 ease-in-out
-                ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-                lg:static lg:translate-x-0 lg:z-auto
-            `}
+            data-open={isOpen}
+            className="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-100 flex flex-col transition-transform duration-300 ease-in-out -translate-x-full data-[open=true]:translate-x-0 lg:static lg:translate-x-0 lg:z-auto"
         >
             {/* Logo + Close button row */}
             <div className="p-6 border-b border-slate-100 flex items-center justify-between">

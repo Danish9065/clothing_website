@@ -9,13 +9,16 @@ import {
     ShoppingCart,
     Settings,
     LogOut,
-    Sparkles
+    Sparkles,
+    X
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
 interface AdminSidebarProps {
     adminName: string
     adminEmail: string
+    isOpen: boolean
+    onClose: () => void
 }
 
 const navItems = [
@@ -48,7 +51,9 @@ const navItems = [
 
 export default function AdminSidebar({
     adminName,
-    adminEmail
+    adminEmail,
+    isOpen,
+    onClose,
 }: AdminSidebarProps) {
     const pathname = usePathname()
     const router = useRouter()
@@ -61,15 +66,20 @@ export default function AdminSidebar({
     }
 
     return (
-        <aside className="fixed left-0 top-0 h-full w-64 
-                      bg-white border-r border-slate-100 
-                      flex flex-col z-40">
-
-            {/* Logo */}
-            <div className="p-6 border-b border-slate-100">
+        <aside
+            className={`
+                fixed inset-y-0 left-0 z-50 w-64
+                bg-white border-r border-slate-100
+                flex flex-col
+                transition-transform duration-300 ease-in-out
+                ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+                lg:static lg:translate-x-0 lg:z-auto
+            `}
+        >
+            {/* Logo + Close button row */}
+            <div className="p-6 border-b border-slate-100 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <div className="bg-brand-500 p-2 rounded-xl 
-                          text-white">
+                    <div className="bg-brand-500 p-2 rounded-xl text-white">
                         <Sparkles className="w-5 h-5" />
                     </div>
                     <div>
@@ -81,6 +91,15 @@ export default function AdminSidebar({
                         </p>
                     </div>
                 </div>
+
+                {/* X close button — only visible on mobile */}
+                <button
+                    onClick={onClose}
+                    className="lg:hidden p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+                    aria-label="Close sidebar"
+                >
+                    <X className="w-5 h-5" />
+                </button>
             </div>
 
             {/* Navigation */}
@@ -95,6 +114,7 @@ export default function AdminSidebar({
                         <Link
                             key={item.href}
                             href={item.href}
+                            onClick={onClose}
                             className={`flex items-center gap-3 px-4 py-3 
                 rounded-xl text-sm font-medium 
                 transition-all
@@ -115,6 +135,7 @@ export default function AdminSidebar({
                 <Link
                     href="/"
                     target="_blank"
+                    onClick={onClose}
                     className="flex items-center gap-3 px-4 py-2 
                      text-xs text-slate-400 
                      hover:text-brand-500 transition-colors"
